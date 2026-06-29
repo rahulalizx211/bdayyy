@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎈✨</title>
+    <style>
+        /* --- Reset & Festive Luxury Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #2c111d 0%, #0b0307 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            overflow: hidden;
+            perspective: 2000px;
+        }
+
+        /* --- Festive Ambient Party Glows --- */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before { background: #ff0844; top: -10%; left: 10%; }
+        body::after { background: #ffb199; bottom: -10%; right: 10%; }
+
+        /* --- Celebration Instruction --- */
+        .instruction {
+            position: absolute;
+            top: 6%;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ff416c, #ffb199);
+            padding: 14px 32px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(255, 8, 68, 0.3);
+            animation: bounceText 2s ease-in-out infinite;
+            z-index: 30;
+            transition: opacity 0.5s ease;
+        }
+
+        .scene.box-opened ~ .instruction {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes bounceText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(255, 8, 68, 0.5); }
+        }
+
+        /* --- Interactive Scene Container --- */
+        .scene {
+            width: 700px;
+            height: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* --- Festive 3D Gift Box --- */
+        .gift-box {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: festiveRotate 12s linear infinite;
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        @keyframes festiveRotate {
+            0% { transform: rotateX(-15deg) rotateY(0deg); }
+            100% { transform: rotateX(-15deg) rotateY(360deg); }
+        }
+
+        .scene:not(.box-opened):hover .gift-box {
+            animation: none;
+            transform: scale(1.1) rotateY(45deg) rotateX(10deg);
+        }
+
+        .scene.box-opened .gift-box {
+            animation: none;
+            transform: scale(0);
+            pointer-events: none;
+        }
+
+        /* --- Gift Wrapping Box Faces --- */
+        .face {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #ff0844 0%, #9b0024 100%);
+            border: 2px solid #ffb199;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.4), 0 0 20px rgba(255, 8, 68, 0.4);
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .face::before, .face::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(90deg, #ffe066, #f5af19, #ffe066);
+            box-shadow: 0 0 15px rgba(245, 175, 25, 0.7);
+        }
+        .face::before { top: 0; left: 78px; width: 24px; height: 100%; }
+        .face::after { top: 78px; left: 0; width: 100%; height: 24px; }
+
+        .front  { transform: rotateY(0deg) translateZ(90px); }
+        .back   { transform: rotateY(180deg) translateZ(90px); }
+        .left   { transform: rotateY(-90deg) translateZ(90px); }
+        .right  { transform: rotateY(90deg) translateZ(90px); }
+        .top    { transform: rotateX(90deg) translateZ(90px); background: #ff0844; }
+        .bottom { transform: rotateX(-90deg) translateZ(90px); background: #40000e; }
+
+        .scene.box-opened .front  { transform: rotateY(0deg) translateZ(450px); opacity: 0; }
+        .scene.box-opened .back   { transform: rotateY(180deg) translateZ(450px); opacity: 0; }
+        .scene.box-opened .left   { transform: rotateY(-90deg) translateZ(450px); opacity: 0; }
+        .scene.box-opened .right  { transform: rotateY(90deg) translateZ(450px); opacity: 0; }
+        .scene.box-opened .top    { transform: rotateX(90deg) translateZ(450px); opacity: 0; }
+        .scene.box-opened .bottom { transform: rotateX(-90deg) translateZ(350px); opacity: 0; }
+
+        /* --- Interactive Candle Game Stage --- */
+        .cake-stage {
+            position: absolute;
+            width: 380px;
+            background: rgba(44, 13, 26, 0.85);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 30px;
+            border: 2px solid #ffe066;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.3);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 21;
+            pointer-events: none;
+        }
+
+        .scene.game-active .cake-stage {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .cake-stage h3 {
+            color: #ffe066;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- Cake Layout & Candles --- */
+        .cake-container {
+            width: 200px;
+            height: 140px;
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cake-body {
+            position: absolute;
+            bottom: 0;
+            width: 180px;
+            height: 80px;
+            background: #ff758c;
+            border-radius: 12px 12px 4px 4px;
+            box-shadow: inset 0 -10px 0 rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .cake-frosting {
+            position: absolute;
+            bottom: 50px;
+            width: 184px;
+            height: 35px;
+            background: #fff;
+            border-radius: 20px 20px 10px 10px;
+        }
+
+        .candles-row {
+            position: absolute;
+            bottom: 80px;
+            width: 120px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 2;
+        }
+
+        .candle {
+            width: 14px;
+            height: 45px;
+            background: linear-gradient(to right, #00e3ae, #00f2fe);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .candle::before {
+            content: '';
+            position: absolute;
+            top: -6px; left: 6px;
+            width: 2px; height: 6px;
+            background: #333;
+        }
+
+        .flame {
+            position: absolute;
+            top: -22px; left: 1px;
+            width: 12px; height: 18px;
+            background: radial-gradient(circle at bottom, #ffeb3b, #ff5722);
+            border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+            box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff5722;
+            animation: flicker 0.6s infinite alternate;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); }
+            100% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        .candle.blown-out .flame {
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
+        }
+
+        /* --- Birthday Slideshow Stage Frame --- */
+        .birthday-stage {
+            position: absolute;
+            width: 450px;
+            background: rgba(44, 13, 26, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 30px;
+            padding: 24px;
+            border: 2px solid rgba(255, 177, 153, 0.3);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9), 
+                        inset 0 0 40px rgba(255, 8, 68, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.3) translateY(60px);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .scene.stage-active .birthday-stage {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* --- Photo Window --- */
+        .slider-window {
+            width: 100%;
+            height: 470px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: #12030a;
+        }
+
+        .slide-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-img-container {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-img-container::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+            pointer-events: none;
+        }
+
+        /* --- Festive Slide Captions --- */
+        .slide-text-container {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 16px;
+            background: linear-gradient(to bottom, rgba(255,8,68,0.05), rgba(0,0,0,0.4));
+        }
+
+        .slide-text-container h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffe066, #f5af19, #ff5e62, #ffe066);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+            animation: celebratoryShine 3s linear infinite;
+        }
+
+        .slide-text-container p {
+            font-size: 0.95rem;
+            color: #ffe5ec;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        @keyframes celebratoryShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* --- UI Arrow Navigation --- */
+        .nav-btn {
+            position: absolute;
+            top: 38%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 8, 68, 0.2);
+            border: 1px solid rgba(255, 177, 153, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background: #ff0844;
+            box-shadow: 0 0 20px #ff0844;
+            border-color: #fff;
+        }
+
+        .prev-btn { left: 16px; }
+        .next-btn { right: 16px; }
+
+        /* --- Floating Balloon Party Asset --- */
+        .balloon-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 44px;
+            height: 56px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            opacity: 0;
+            box-shadow: inset -6px -6px 20px rgba(0,0,0,0.35), 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -14px;
+            left: 21px;
+            width: 1px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .scene.stage-active .balloon {
+            animation: partyFloat 7s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+        }
+
+        .balloon:nth-child(1) { background: radial-gradient(circle at 35% 35%, #ff758c, #ff0844); left: 4%;  animation-duration: 6s; }
+        .balloon:nth-child(2) { background: radial-gradient(circle at 35% 35%, #ffedbc, #f5af19); left: 16%; animation-delay: 1.8s; animation-duration: 7s; }
+        .balloon:nth-child(3) { background: radial-gradient(circle at 35% 35%, #9be15d, #00e3ae); left: 48%; animation-delay: 0.4s; animation-duration: 5.8s; }
+        .balloon:nth-child(4) { background: radial-gradient(circle at 35% 35%, #ff9a9e, #fecfef); left: 74%; animation-delay: 2.5s; animation-duration: 7.5s; }
+        .balloon:nth-child(5) { background: radial-gradient(circle at 35% 35%, #4facfe, #00f2fe); left: 90%; animation-delay: 0.9s; animation-duration: 6.4s; }
+
+        @keyframes partyFloat {
+            0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(-900px) scale(1.1) rotate(20deg); opacity: 0; }
+        }
+
+        /* --- High-Density Confetti Burst System --- */
+        .confetti-cannon {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        .piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+
+        .scene.stage-active .piece {
+            animation: blastOutward 2s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+        }
+
+        @keyframes blastOutward {
+            0% { transform: translate3d(0,0,0) scale(2); opacity: 1; }
+            20% { opacity: 1; }
+            100% { transform: translate3d(var(--x), var(--y), 0) scale(0.4) rotate(var(--r)); opacity: 0; }
+        }
+
+        .piece:nth-child(1)  { background: #ffe066; top: 50%; left: 50%; --x: -180px; --y: -250px; --r: 720deg; }
+        .piece:nth-child(2)  { background: #ff0844; top: 50%; left: 50%; --x: 180px;  --y: -280px; --r: -540deg; }
+        .piece:nth-child(3)  { background: #00e3ae; top: 50%; left: 50%; --x: -240px; --y: -120px; --r: 360deg; }
+        .piece:nth-child(4)  { background: #00f2fe; top: 50%; left: 50%; --x: 240px;  --y: -150px; --r: -900deg; }
+        .piece:nth-child(5)  { background: #f5af19; top: 50%; left: 50%; --x: -80px;  --y: -320px; --r: 1080deg; }
+        .piece:nth-child(6)  { background: #ff9a9e; top: 50%; left: 50%; --x: 90px;   --y: -300px; --r: -720deg; }
+        .piece:nth-child(7)  { background: #ffe066; top: 50%; left: 50%; --x: -290px; --y: -40px;  --r: 450deg; }
+        .piece:nth-child(8)  { background: #ff0844; top: 50%; left: 50%; --x: 290px;  --y: -60px;  --r: -180deg; }
+
+        /* --- Sparkles --- */
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffe066;
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 12px #ffe066, 0 0 20px #f5af19;
+        }
+
+        .scene.stage-active .sparkle {
+            animation: shimmer 3.5s linear infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0.2s; }
+        .sparkle:nth-child(2) { top: 75%; left: 8%;  animation-delay: 1.5s; }
+        .sparkle:nth-child(3) { top: 15%; left: 85%; animation-delay: 0.7s; }
+        .sparkle:nth-child(4) { top: 80%; left: 88%; animation-delay: 2.2s; }
+
+        @keyframes shimmer {
+            0% { transform: translateY(0) scale(0.4); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(1.3); opacity: 0; }
+        }
+        
+        /* Audio is hidden per request */
+        #bdayAudio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="instruction">Tap Box to Open Surprise 🎁 🎉</div>
+
+    <div class="scene" id="mainScene">
+        <div class="gift-box" onclick="openBox()">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face left"></div>
+            <div class="face right"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+
+        <div class="cake-stage" id="cakeStage">
+            <h3>Blow out the candles! 🎂</h3>
+            <div class="cake-container">
+                <div class="candles-row">
+                    <div class="candle" onclick="blowCandle(this)"><div class="flame"></div></div>
+                    <div class="candle" onclick="blowCandle(this)"><div class="flame"></div></div>
+                    <div class="candle" onclick="blowCandle(this)"><div class="flame"></div></div>
+                </div>
+                <div class="cake-frosting"></div>
+                <div class="cake-body"></div>
+            </div>
+        </div>
+
+        <div class="balloon-container">
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+        </div>
+
+        <div class="confetti-cannon">
+            <div class="piece"></div>
+            <div class="piece"></div>
+            <div class="piece"></div>
+            <div class="piece"></div>
+            <div class="piece"></div>
+            <div class="piece"></div>
+            <div class="piece"></div>
+            <div class="piece"></div>
+        </div>
+
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+
+        <div class="birthday-stage" id="stageContainer">
+            <div class="slider-window">
+                <button class="nav-btn prev-btn" onclick="moveSlide(-1); resetTimer();">‹</button>
+                <button class="nav-btn next-btn" onclick="moveSlide(1); resetTimer();">›</button>
+                
+                <div class="slide-track" id="slideTrack">
+                    <div class="slide">
+                        <div class="slide-img-container">
+                            <img src="/images/IMG_4204 2.jpg" alt="Photo 1">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2>Happy Birthday! 🥳 ✨</h2>
+                            <p>Wishing an absolute masterpiece of a day to an incredibly spectacular person!</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-img-container">
+                            <img src="/images/IMG_4205.jpg" alt="Photo 2">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2>Time to Celebrate! 🍰 🎉</h2>
+                            <p>May your year be completely unforgettable, brilliant, and full of beautiful moments.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-img-container">
+                            <img src="/images/IMG_4206.jpg" alt="Photo 3">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2>Cheers to Another Year! 🎈 🌟</h2>
+                            <p>Keep shining bright and rocking the world. Have the best birthday ever!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bdayAudio" src="https://scummbar.com/mi2/MI1-CD/01%20-%20Opening%20Themes%20-%20Introduction.mp3" loop></audio>
+
+    <script>
+        let currentIdx = 0;
+        let autoSlideTimer = null;
+        let candlesBlown = 0;
+        const totalCandles = 3;
+        const audio = document.getElementById('bdayAudio');
+
+        function openBox() {
+            const scene = document.getElementById('mainScene');
+            if(!scene.classList.contains('box-opened')) {
+                scene.classList.add('box-opened');
+                setTimeout(() => {
+                    scene.classList.add('game-active');
+                }, 400);
+            }
+        }
+
+        function blowCandle(element) {
+            if(!element.classList.contains('blown-out')) {
+                element.classList.add('blown-out');
+                candlesBlown++;
+                
+                if(candlesBlown === totalCandles) {
+                    setTimeout(() => {
+                        const scene = document.getElementById('mainScene');
+                        scene.classList.remove('game-active');
+                        scene.classList.add('stage-active');
+                        
+                        playMusicSafely();
+                        startTimer();
+                    }, 600);
+                }
+            }
+        }
+
+        function playMusicSafely() {
+            audio.play().catch(err => {
+                console.log("Autoplay blocked. Press play manually.", err);
+                // We'd usually show a button here, but the request was to remove the track from the screen, 
+                // implying a clean look is preferred over standard controls in an autoplay scenario.
+            });
+        }
+
+        function moveSlide(direction) {
+            const track = document.getElementById('slideTrack');
+            const totalSlides = document.querySelectorAll('.slide').length;
+            
+            currentIdx += direction;
+            
+            if (currentIdx >= totalSlides) {
+                currentIdx = 0; 
+            } else if (currentIdx < 0) {
+                currentIdx = totalSlides - 1; 
+            }
+            
+            track.style.transform = `translateX(-${currentIdx * 100}%)`;
+        }
+
+        function startTimer() {
+            if (!autoSlideTimer) {
+                autoSlideTimer = setInterval(() => {
+                    moveSlide(1);
+                }, 4000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = null;
+            startTimer();
+        }
+
+        const stage = document.getElementById('stageContainer');
+        stage.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = null;
+        });
+        stage.addEventListener('mouseleave', () => {
+            startTimer();
+        });
+    </script>
+
+</body>
+</html>
